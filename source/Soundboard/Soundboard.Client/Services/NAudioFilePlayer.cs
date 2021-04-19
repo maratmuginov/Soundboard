@@ -5,34 +5,29 @@ namespace Soundboard.Client.Services
 {
     public class NAudioFilePlayer : IAudioFilePlayer
     {
-        public int OutputDeviceNumber { get; set; }
         public event PlaybackStopped PlaybackStopped;
-
         private AudioFileReader _audioFileReader;
-        private WaveOut _waveOut;
+        private WasapiOut _player;
 
         public void StartPlaying(string fileName)
         {
             _audioFileReader = new AudioFileReader(fileName);
-            _waveOut = new WaveOut
-            {
-                DeviceNumber = OutputDeviceNumber
-            };
-            _waveOut.PlaybackStopped += OnPlayBackStopped;
-            _waveOut.Init(_audioFileReader);
-            _waveOut.Play();
+            _player = new WasapiOut();
+            _player.PlaybackStopped += OnPlayBackStopped;
+            _player.Init(_audioFileReader);
+            _player.Play();
         }
 
         private void OnPlayBackStopped(object sender, StoppedEventArgs e)
         {
             PlaybackStopped?.Invoke();
-            _waveOut?.Dispose();
+            _player?.Dispose();
             _audioFileReader?.Dispose();
         }
 
         public void StopPlaying()
         {
-            _waveOut?.Stop();
+            _player?.Stop();
         }
     }
 }

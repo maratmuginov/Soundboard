@@ -15,7 +15,7 @@ namespace Soundboard.Client.Services
             _bufferedWaveProvider = new BufferedWaveProvider(_recorder.WaveFormat);
             _recorder.DataAvailable += OnRecorderDataAvailable;
 
-            _player = new WasapiOut(AudioClientShareMode.Shared, true, 0);
+            _player = new WasapiOut();
             _player.Init(_bufferedWaveProvider);
 
             _player.Play();
