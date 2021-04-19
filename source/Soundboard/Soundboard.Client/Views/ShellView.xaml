@@ -1,0 +1,29 @@
+﻿<Window x:Class="Soundboard.Client.Views.ShellView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:viewmodels="clr-namespace:Soundboard.Client.ViewModels" 
+        d:DataContext="{d:DesignInstance Type=viewmodels:ShellViewModel}"
+        mc:Ignorable="d"
+        Title="ShellView" Height="225" Width="400" FontSize="16">
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="Button" BasedOn="{StaticResource ButtonStyle}"/>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Button Content="Start Forwarding" IsEnabled="{Binding Path=CanForward}"
+                Command="{Binding Path=StartForwardingCommand}"/>
+        <Button Grid.Row="0" Grid.Column="1" Content="Stop Forwarding"
+                Command="{Binding Path=StopForwardingCommand}"/>
+
+        <ContentControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Path=SoundboardViewModel}"/>
+    </Grid>
+</Window>

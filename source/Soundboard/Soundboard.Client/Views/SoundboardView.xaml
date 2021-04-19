@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="Soundboard.Client.Views.SoundboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewmodels="clr-namespace:Soundboard.Client.ViewModels" 
+             d:DataContext="{d:DesignInstance Type=viewmodels:SoundboardViewModel}"
+             mc:Ignorable="d"
+             d:DesignHeight="225" d:DesignWidth="400">
+    <UserControl.Resources>
+        <Style TargetType="Button" BasedOn="{StaticResource ButtonStyle}"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="10,0,10,0" Grid.Row="0" Text="Selected File: " Foreground="Gray"/>
+            <TextBox Grid.Row="1" Grid.Column="0" Margin="10" 
+                     Text="{Binding Path=FileName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Grid.Row="1" Grid.Column="1" Content="..." 
+                    Command="{Binding Path=PickFileCommand}"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="Start Playing" IsEnabled="{Binding Path=IsPlayerFree}"
+                    Command="{Binding Path=StartPlayingCommand}"/>
+            <Button Grid.Column="1" Content="Stop Playing" 
+                    Command="{Binding Path=StopPlayingCommand}"/>
+        </Grid>
+    </Grid>
+</UserControl>
