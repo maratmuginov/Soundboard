@@ -5,5 +5,6 @@
     {
         void StartPlaying(string fileName);
         void StopPlaying();
+        event PlaybackStopped PlaybackStopped;
     }
 }

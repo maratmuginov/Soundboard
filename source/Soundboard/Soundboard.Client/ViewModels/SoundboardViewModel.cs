@@ -37,10 +37,16 @@ namespace Soundboard.Client.ViewModels
         public SoundboardViewModel(IAudioFilePlayer audioFilePlayer, IFilePicker filePicker)
         {
             _audioFilePlayer = audioFilePlayer;
+            _audioFilePlayer.PlaybackStopped += OnPlaybackStopped;
             _filePicker = filePicker;
             StartPlayingCommand = new RelayCommand(StartPlaying, CanStartPlaying);
             StopPlayingCommand = new RelayCommand(StopPlaying);
             PickFileCommand = new RelayCommand(PickFile);
+        }
+
+        private void OnPlaybackStopped()
+        {
+            IsPlayerFree = true;
         }
 
         private bool CanStartPlaying()
